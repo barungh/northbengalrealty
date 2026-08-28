@@ -1,0 +1,145 @@
+<app-header />
+
+<main>
+  @if (loading()) {
+    <div class="min-h-screen flex items-center justify-center" role="status" aria-label="Loading property details">
+      <div class="flex flex-col items-center gap-4">
+        <div class="w-12 h-12 border-4 border-green-200 border-t-green-800 rounded-full animate-spin"></div>
+        <p class="text-slate-500 font-semibold">Loading property…</p>
+      </div>
+    </div>
+  } @else if (!property()) {
+    <div class="min-h-screen flex items-center justify-center px-4">
+      <div class="text-center max-w-sm">
+        <p class="font-heading font-bold text-slate-800 text-2xl mb-3">Property Not Found</p>
+        <p class="text-slate-500 mb-6">This listing may have been removed or the link is incorrect.</p>
+        <a routerLink="/" class="inline-flex items-center gap-2 bg-green-800 hover:bg-green-900 text-white font-semibold px-6 py-3 rounded-full transition-colors">
+          ← Back to Listings
+        </a>
+      </div>
+    </div>
+  } @else {
+    <!-- Property Detail Page -->
+    <article>
+      <!-- Hero image -->
+      <div class="relative h-64 sm:h-80 md:h-96 lg:h-[420px] overflow-hidden bg-slate-100">
+        <img [src]="property()!.imageUrl" [alt]="property()!.altText"
+          class="w-full h-full object-cover" width="1200" height="500">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+
+        <!-- Breadcrumb -->
+        <nav class="absolute top-4 left-4 sm:left-6 lg:left-8" aria-label="Breadcrumb">
+          <ol class="flex items-center gap-2 text-sm text-white/90 font-semibold" role="list">
+            <li><a routerLink="/" class="hover:text-white underline underline-offset-2">Home</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a routerLink="/" fragment="listings" class="hover:text-white underline underline-offset-2">Listings</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-white" [attr.aria-current]="'page'">{{ property()!.district }}</li>
+          </ol>
+        </nav>
+
+        <!-- Price overlay -->
+        <div class="absolute bottom-5 left-5 sm:left-8 lg:left-10">
+          <span class="price-badge inline-block px-4 py-1.5 rounded-full text-base md:text-lg font-heading">
+            {{ formatPrice(property()!.price, property()!.priceUnit) }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 py-8 md:py-12">
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-12">
+
+          <!-- Left: details -->
+          <div class="lg:col-span-2">
+            <!-- Type badge -->
+            <span class="text-xs font-bold uppercase tracking-widest text-green-800 bg-green-50 px-3 py-1 rounded-full border border-green-200">
+              {{ property()!.type }}
+            </span>
+
+            <h1 class="font-heading font-extrabold text-slate-800 text-2xl md:text-3xl mt-4 leading-tight">
+              {{ property()!.title }}
+            </h1>
+
+            <p class="flex items-center gap-1.5 text-sm text-slate-500 mt-2">
+              <svg class="icon text-green-700" aria-hidden="true"><use href="#i-map-pin"></use></svg>
+              {{ property()!.location }}, {{ property()!.district }}
+            </p>
+
+            <!-- Specs -->
+            <div class="flex flex-wrap gap-3 mt-5">
+              @if (property()!.bhk) {
+                <span class="flex items-center gap-1.5 text-sm font-semibold bg-slate-50 text-slate-700 px-3.5 py-2 rounded-xl border border-slate-200">
+                  <svg class="icon text-green-700" aria-hidden="true"><use href="#i-bed"></use></svg>
+                  {{ property()!.bhk }} BHK
+                </span>
+              }
+              <span class="flex items-center gap-1.5 text-sm font-semibold bg-slate-50 text-slate-700 px-3.5 py-2 rounded-xl border border-slate-200">
+                <svg class="icon text-green-700" aria-hidden="true"><use href="#i-ruler"></use></svg>
+                {{ property()!.area }} {{ property()!.areaUnit }}
+              </span>
+              @if (property()!.isFeatured) {
+                <span class="flex items-center gap-1.5 text-sm font-semibold bg-amber-50 text-amber-700 px-3.5 py-2 rounded-xl border border-amber-200">
+                  ★ Featured
+                </span>
+              }
+            </div>
+
+            <!-- Description -->
+            <div class="mt-6">
+              <h2 class="font-heading font-bold text-slate-800 text-lg mb-3">About this Property</h2>
+              <p class="text-slate-600 text-sm md:text-base leading-relaxed">{{ property()!.description }}</p>
+            </div>
+
+            <!-- Amenities -->
+            @if (property()!.amenities.length) {
+              <div class="mt-6">
+                <h2 class="font-heading font-bold text-slate-800 text-lg mb-3">Features &amp; Amenities</h2>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2" role="list">
+                  @for (amenity of property()!.amenities; track amenity) {
+                    <li class="flex items-center gap-2 text-sm text-slate-600">
+                      <svg class="icon text-green-700 shrink-0" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+                      {{ amenity }}
+                    </li>
+                  }
+                </ul>
+              </div>
+            }
+          </div>
+
+          <!-- Right: CTA sidebar -->
+          <aside class="bg-ice rounded-3xl p-6 ring-1 ring-slate-200 h-fit sticky top-24" aria-label="Enquiry options">
+            <p class="font-heading font-extrabold text-green-800 text-2xl mb-1">
+              {{ formatPrice(property()!.price, property()!.priceUnit) }}
+            </p>
+            <p class="text-xs text-slate-500 mb-5">
+              {{ property()!.area }} {{ property()!.areaUnit }}
+              @if (property()!.bhk) { · {{ property()!.bhk }} BHK }
+            </p>
+
+            <button (click)="shareWhatsApp()" type="button" id="detail-wa-btn"
+              class="w-full inline-flex items-center justify-center gap-2.5 bg-green-800 hover:bg-green-900 active:scale-[0.98] transition-all text-white font-semibold text-base px-6 py-3.5 rounded-full shadow-card mb-3">
+              <svg class="icon text-xl" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+              Enquire via WhatsApp
+            </button>
+
+            <a href="tel:+916297063622" id="detail-call-btn"
+              class="w-full inline-flex items-center justify-center gap-2.5 bg-white hover:bg-slate-50 active:scale-[0.98] transition-all text-slate-800 font-semibold text-base px-6 py-3.5 rounded-full ring-2 ring-slate-200 mb-4">
+              <svg class="icon text-xl" aria-hidden="true"><use href="#i-phone"></use></svg>
+              Call Now
+            </a>
+
+            <p class="text-center text-xs text-slate-500">
+              <svg class="icon text-green-700 inline" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+              Free title-clarity consultation
+            </p>
+          </aside>
+
+        </div>
+      </div>
+    </article>
+  }
+</main>
+
+<app-footer />
+<app-mobile-bottom-bar />

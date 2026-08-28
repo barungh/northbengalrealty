@@ -1,0 +1,32 @@
+<header [class.shadow-soft]="scrolled()"
+  class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-shadow">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
+
+    <!-- Logo -->
+    <a routerLink="/" class="flex items-center gap-2.5 shrink-0" aria-label="North Bengal Realty Home">
+      <img src="assets/images/logo.png" alt="North Bengal Realty" class="h-10 w-10 md:h-12 md:w-12 object-contain shrink-0 rounded-lg">
+      <span class="leading-tight">
+        <span class="block font-heading font-bold text-slate-800 text-[15px] md:text-lg tracking-tight">North Bengal Realty</span>
+        <span class="hidden sm:block text-[11px] md:text-xs text-slate-500 font-medium">Clear-Title Land &amp; Property</span>
+      </span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600" aria-label="Main navigation">
+      <a href="#regions" class="hover:text-green-800 transition-colors">Regions</a>
+      <a href="#listings" class="hover:text-green-800 transition-colors">Listings</a>
+      <a href="#services" class="hover:text-green-800 transition-colors">Services</a>
+      <a href="#why-us" class="hover:text-green-800 transition-colors">Why Us</a>
+      <a href="#contact" class="hover:text-green-800 transition-colors">Contact</a>
+    </nav>
+
+    <!-- CTA -->
+    <a href="tel:+918617047355" id="header-call-btn"
+      class="inline-flex items-center gap-2 bg-green-800 hover:bg-green-900 active:scale-95 transition-all text-white font-semibold text-sm px-4 py-2.5 rounded-full shadow-card shrink-0"
+      aria-label="Call North Bengal Realty">
+      <svg class="icon text-xs" aria-hidden="true"><use href="#i-phone"></use></svg>
+      <span class="hidden xs:inline">Call Now</span>
+      <span class="xs:hidden">Call</span>
+    </a>
+  </div>
+</header>

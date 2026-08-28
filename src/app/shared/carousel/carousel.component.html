@@ -1,0 +1,84 @@
+<section id="recent-listings" class="bg-ice py-14 md:py-20" aria-labelledby="carousel-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Header -->
+    <div class="flex items-end justify-between mb-8" data-reveal>
+      <div>
+        <span class="text-green-800 font-bold text-xs md:text-sm uppercase tracking-widest">Fresh to Market</span>
+        <h2 id="carousel-heading" class="font-heading font-bold text-2xl md:text-4xl text-slate-800 mt-2">Recent Listings</h2>
+        <p class="mt-2 text-slate-600 text-sm md:text-base">Newly verified properties across North Bengal &amp; Sikkim.</p>
+      </div>
+
+      <!-- Desktop nav arrows -->
+      <div class="hidden sm:flex items-center gap-2" aria-label="Carousel navigation">
+        <button (click)="scrollPrev()" class="nav-btn" aria-label="Previous listing" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+        </button>
+        <button (click)="scrollNext()" class="nav-btn" aria-label="Next listing" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Carousel track -->
+    <div #track class="carousel-track" role="list" aria-label="Recent property listings">
+
+      @for (property of properties(); track property.id) {
+        <div class="carousel-slide" role="listitem">
+          <a [routerLink]="['/property', property.id]" class="carousel-card block no-underline"
+            [attr.aria-label]="'View details for ' + property.title">
+
+            <!-- Image -->
+            <div class="card-img">
+              <img [src]="property.imageUrl" [alt]="property.altText" loading="lazy" width="400" height="200">
+              <!-- Overlay price -->
+              <div class="card-overlay-price">
+                <span class="price-badge inline-block px-3 py-1 rounded-full text-sm font-heading">
+                  {{ formatPrice(property.price, property.priceUnit) }}
+                </span>
+              </div>
+              <!-- Type badge -->
+              <span class="absolute top-3 right-3 z-10 text-[11px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full"
+                [ngClass]="getTypeBadgeClass(property.type)">
+                {{ property.type }}
+              </span>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+              <h3 class="font-heading font-bold text-slate-800 text-base leading-snug line-clamp-2">
+                {{ property.title }}
+              </h3>
+              <p class="flex items-center gap-1 text-xs text-slate-500 mt-1.5">
+                <svg class="icon text-green-700" aria-hidden="true"><use href="#i-map-pin"></use></svg>
+                {{ property.location }}, {{ property.district }}
+              </p>
+
+              <!-- Specs row -->
+              <div class="flex items-center gap-3 mt-3">
+                @if (property.bhk) {
+                  <span class="flex items-center gap-1 text-xs font-semibold text-slate-600">
+                    <svg class="icon text-green-700" aria-hidden="true"><use href="#i-bed"></use></svg>
+                    {{ property.bhk }} BHK
+                  </span>
+                }
+                <span class="flex items-center gap-1 text-xs font-semibold text-slate-600">
+                  <svg class="icon text-green-700" aria-hidden="true"><use href="#i-ruler"></use></svg>
+                  {{ property.area }} {{ property.areaUnit }}
+                </span>
+              </div>
+            </div>
+
+          </a>
+        </div>
+      }
+
+    </div>
+
+    <!-- Mobile swipe hint -->
+    <p class="text-center text-xs text-slate-400 mt-4 sm:hidden" aria-hidden="true">
+      Swipe to see more listings →
+    </p>
+
+  </div>
+</section>

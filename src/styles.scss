@@ -1,0 +1,170 @@
+/* =====================================================
+   North Bengal Realty — Global Styles
+   Uses Tailwind CSS v3 + custom SCSS tokens
+   ===================================================== */
+
+/* 1. Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. Google Font import (fallback — primary via <link> in index.html) */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ---- 3. CSS Custom Properties ---- */
+:root {
+  --color-brand:       #166534;
+  --color-brand-dark:  #14532d;
+  --color-ice:         #F0F7FF;
+  --color-slate-800:   #1e293b;
+  --color-slate-600:   #475569;
+  --color-slate-500:   #64748b;
+  --color-slate-400:   #94a3b8;
+  --color-slate-200:   #e2e8f0;
+  --color-slate-100:   #f1f5f9;
+  --shadow-card:       0 8px 30px -8px rgba(22,101,52,0.18);
+  --shadow-soft:       0 4px 24px -4px rgba(30,41,59,0.08);
+  --transition-base:   200ms ease;
+  --transition-medium: 350ms ease;
+}
+
+/* ---- 4. Global resets ---- */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Outfit', sans-serif;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* ---- 5. Icon system ---- */
+.icon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.125em;
+  flex-shrink: 0;
+}
+
+/* ---- 6. Deed-seal motif ---- */
+.seal-ring {
+  background: conic-gradient(from 0deg, #166534 0deg 8deg, transparent 8deg 22deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+}
+
+.paper-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #CBD5E1 0px, #CBD5E1 1px,
+    transparent 1px, transparent 10px
+  );
+}
+
+/* ---- 7. Reveal-on-scroll ---- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- 8. Focus styles ---- */
+input:focus,
+select:focus,
+textarea:focus,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: var(--color-ice);
+}
+
+/* ---- 9. Carousel styles ---- */
+.carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  gap: 1.25rem;
+  padding-bottom: 0.5rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.carousel-slide {
+  scroll-snap-align: start;
+  flex: 0 0 calc(85vw);
+
+  @media (min-width: 640px) {
+    flex: 0 0 calc(50% - 0.625rem);
+  }
+
+  @media (min-width: 1024px) {
+    flex: 0 0 calc(33.333% - 0.875rem);
+  }
+}
+
+/* ---- 10. Gallery card image zoom ---- */
+.gallery-img-wrap {
+  overflow: hidden;
+  border-radius: 0.75rem 0.75rem 0 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+    display: block;
+  }
+}
+
+.gallery-card:hover .gallery-img-wrap img {
+  transform: scale(1.08);
+}
+
+/* ---- 11. Property price badge ---- */
+.price-badge {
+  background: linear-gradient(135deg, #166534, #14532d);
+  color: #F0F7FF;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ---- 12. WhatsApp button pulse ---- */
+@keyframes wa-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
+  50%       { box-shadow: 0 0 0 10px rgba(37,211,102,0); }
+}
+
+.wa-pulse {
+  animation: wa-pulse 2.4s ease-in-out infinite;
+}

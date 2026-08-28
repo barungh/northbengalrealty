@@ -1,0 +1,181 @@
+<section id="contact" class="bg-white py-14 md:py-20" aria-labelledby="contact-heading">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+
+      <!-- Left: copy -->
+      <div data-reveal>
+        <span class="text-green-800 font-bold text-xs md:text-sm uppercase tracking-widest">Get in Touch</span>
+        <h2 id="contact-heading" class="font-heading font-bold text-2xl md:text-4xl text-slate-800 mt-2">
+          Start Your Property Journey
+        </h2>
+        <p class="mt-4 text-slate-600 text-sm md:text-base leading-relaxed">
+          Fill in the form and your enquiry will open directly in WhatsApp —
+          our team typically responds within the hour during business hours.
+        </p>
+
+        <!-- Contact cards -->
+        <div class="mt-8 space-y-4">
+          <!-- Call Us -->
+          <div class="bg-ice rounded-2xl p-4 ring-1 ring-slate-100">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-green-800 rounded-xl flex items-center justify-center shrink-0">
+                <svg class="icon text-xl text-white" aria-hidden="true">
+                  <use href="#i-phone"></use>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <p class="font-heading font-bold text-slate-800">Call Us</p>
+                <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-semibold">
+                  <a href="tel:+918617047355" id="contact-phone-primary" class="text-green-800 hover:text-green-950 underline underline-offset-2 transition-colors">
+                    +91 86170 47355
+                  </a>
+                  <span class="text-slate-300">|</span>
+                  <a href="tel:+916297063622" id="contact-phone-secondary" class="text-green-800 hover:text-green-950 underline underline-offset-2 transition-colors">
+                    +91 62970 63622
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WhatsApp Direct -->
+          <div class="bg-ice rounded-2xl p-4 ring-1 ring-slate-100">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-green-800 rounded-xl flex items-center justify-center shrink-0">
+                <svg class="icon text-xl text-white" aria-hidden="true">
+                  <use href="#i-whatsapp"></use>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <p class="font-heading font-bold text-slate-800">WhatsApp Direct</p>
+                <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-semibold">
+                  <a href="https://wa.me/919832506170?text=Hi%20North%20Bengal%20Realty%2C%20I%27m%20interested%20in%20a%20property%20enquiry." target="_blank" rel="noopener noreferrer" id="contact-wa-primary" class="text-green-800 hover:text-green-950 underline underline-offset-2 transition-colors">
+                    +91 98325 06170
+                  </a>
+                  <span class="text-slate-300">|</span>
+                  <a href="https://wa.me/916297063622?text=Hi%20North%20Bengal%20Realty%2C%20I%27m%20interested%20in%20a%20property%20enquiry." target="_blank" rel="noopener noreferrer" id="contact-wa-secondary" class="text-green-800 hover:text-green-950 underline underline-offset-2 transition-colors">
+                    +91 62970 63622
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: reactive form -->
+      <div data-reveal>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" id="contact-form"
+          class="bg-white rounded-3xl shadow-card ring-1 ring-slate-100 p-6 md:p-8 space-y-5"
+          novalidate
+          aria-label="Property enquiry form">
+
+          <!-- Name -->
+          <div>
+            <label for="contact-name" class="block text-sm font-semibold text-slate-700 mb-1.5">
+              Your Name <span class="text-red-500">*</span>
+            </label>
+            <input id="contact-name" type="text" formControlName="name" autocomplete="name"
+              placeholder="Raj Kumar"
+              class="w-full px-4 py-3 text-sm rounded-xl border bg-slate-50 placeholder-slate-400 transition-colors"
+              [class.border-slate-200]="!nameError"
+              [class.border-red-400]="nameError"
+              [attr.aria-invalid]="nameError"
+              aria-describedby="name-error">
+            @if (nameError) {
+              <p id="name-error" class="text-xs text-red-500 mt-1" role="alert">Please enter your name (min. 2 characters).</p>
+            }
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <label for="contact-phone" class="block text-sm font-semibold text-slate-700 mb-1.5">
+              Mobile Number <span class="text-red-500">*</span>
+            </label>
+            <div class="flex">
+              <span class="inline-flex items-center px-3.5 py-3 border border-r-0 border-slate-200 rounded-l-xl bg-slate-100 text-slate-500 text-sm font-semibold">
+                +91
+              </span>
+              <input id="contact-phone" type="tel" formControlName="phone" autocomplete="tel"
+                placeholder="9876543210" inputmode="numeric" maxlength="10"
+                class="flex-1 px-4 py-3 text-sm rounded-r-xl border bg-slate-50 placeholder-slate-400 transition-colors"
+                [class.border-slate-200]="!phoneError"
+                [class.border-red-400]="phoneError"
+                [attr.aria-invalid]="phoneError"
+                aria-describedby="phone-error">
+            </div>
+            @if (phoneError) {
+              <p id="phone-error" class="text-xs text-red-500 mt-1" role="alert">Please enter a valid 10-digit Indian mobile number.</p>
+            }
+          </div>
+
+          <!-- Enquiry Type -->
+          <div>
+            <label for="contact-enquiry" class="block text-sm font-semibold text-slate-700 mb-1.5">
+              Enquiry Type <span class="text-red-500">*</span>
+            </label>
+            <select id="contact-enquiry" formControlName="enquiryType"
+              class="w-full px-4 py-3 text-sm rounded-xl border bg-slate-50 text-slate-700 transition-colors"
+              [class.border-slate-200]="!enquiryError"
+              [class.border-red-400]="enquiryError"
+              [attr.aria-invalid]="enquiryError"
+              aria-describedby="enquiry-error">
+              <option value="" disabled>Select enquiry type…</option>
+              @for (type of enquiryTypes; track type) {
+                <option [value]="type">{{ type }}</option>
+              }
+            </select>
+            @if (enquiryError) {
+              <p id="enquiry-error" class="text-xs text-red-500 mt-1" role="alert">Please select an enquiry type.</p>
+            }
+          </div>
+
+          <!-- District (optional) -->
+          <div>
+            <label for="contact-district" class="block text-sm font-semibold text-slate-700 mb-1.5">
+              District of Interest <span class="text-slate-400 text-xs font-normal">(optional)</span>
+            </label>
+            <select id="contact-district" formControlName="district"
+              class="w-full px-4 py-3 text-sm rounded-xl border border-slate-200 bg-slate-50 text-slate-700">
+              <option value="">Any / Not sure</option>
+              @for (d of districts; track d) {
+                <option [value]="d">{{ d }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="contact-message" class="block text-sm font-semibold text-slate-700 mb-1.5">
+              Your Message <span class="text-red-500">*</span>
+            </label>
+            <textarea id="contact-message" formControlName="message" rows="4"
+              placeholder="Describe the property you're looking for, your budget, or the legal issue you need help with…"
+              class="w-full px-4 py-3 text-sm rounded-xl border bg-slate-50 placeholder-slate-400 resize-none transition-colors"
+              [class.border-slate-200]="!messageError"
+              [class.border-red-400]="messageError"
+              [attr.aria-invalid]="messageError"
+              aria-describedby="message-error"></textarea>
+            @if (messageError) {
+              <p id="message-error" class="text-xs text-red-500 mt-1" role="alert">Please enter your message (min. 10 characters).</p>
+            }
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" id="contact-submit-btn"
+            class="w-full inline-flex items-center justify-center gap-2.5 bg-green-800 hover:bg-green-900 active:scale-[0.98] transition-all text-white font-semibold text-base px-6 py-4 rounded-full shadow-card">
+            <svg class="icon text-xl" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+            Send via WhatsApp
+          </button>
+
+          <p class="text-center text-xs text-slate-500">
+            <svg class="icon text-green-700 inline" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+            No registration needed. No spam. We respond within the hour.
+          </p>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
