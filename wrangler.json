@@ -2,10 +2,11 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "northbengalrealty",
   "compatibility_date": "2026-08-28",
-  "build": {
-    "command": "npm run build"
-  },
   "assets": {
-    "directory": "dist/nbr-app/browser"
+    "directory": "dist/nbr-app/browser",
+    "not_found_handling": "single-page-application"
+  },
+  "observability": {
+    "enabled": true
   }
 }
