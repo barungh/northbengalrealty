@@ -3,7 +3,10 @@
   <h1>North Bengal Realty</h1>
   <p><strong>Clear-Title Land & Property Across North Bengal & Sikkim</strong></p>
   <p>
-    <a href="https://northbengalrealty.in/"><strong>northbengalrealty.in</strong></a>
+    <a href="https://www.northbengalrealty.in/"><img src="https://img.shields.io/badge/Live%20Website-www.northbengalrealty.in-166534?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Live Website" /></a>
+  </p>
+  <p>
+    <a href="https://www.northbengalrealty.in/"><strong>🌐 https://www.northbengalrealty.in</strong></a>
   </p>
 </div>
 
