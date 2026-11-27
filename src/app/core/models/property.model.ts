@@ -19,6 +19,25 @@ export type District =
   | 'Kalimpong'
   | 'Gangtok';
 
+export interface PropertyPhoto {
+  src: string;
+  alt: string;
+}
+
+/** One row of a land schedule (owned parcels shown on a site plan) */
+export interface LandParcel {
+  label: string;
+  size: string;
+  areaSqft: string;
+  katha: string;
+}
+
+export interface SitePlan {
+  imageUrl: string;
+  pdfUrl: string;
+  altText: string;
+}
+
 export interface Property {
   /** Unique identifier — matches PostgreSQL UUID primary key */
   id: string;
@@ -41,6 +60,13 @@ export interface Property {
   listedAt: string;
   description: string;
   amenities: string[];
+  /** true → show "Price on Request" instead of price/priceUnit */
+  priceOnRequest?: boolean;
+  /** Extra photos shown on the detail page */
+  gallery?: PropertyPhoto[];
+  sitePlan?: SitePlan;
+  parcels?: LandParcel[];
+  bestFitFor?: string[];
 }
 
 /** DTO shape expected from the future FastAPI response */

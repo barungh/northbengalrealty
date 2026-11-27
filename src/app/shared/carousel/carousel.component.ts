@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, signal } from '@angular/core'
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PropertyService } from '../../core/services/property.service';
+import { formatPrice } from '../../core/utils/format-price';
 import { Property } from '../../core/models/property.model';
 
 @Component({
@@ -33,11 +34,8 @@ export class CarouselComponent implements OnInit {
     track.scrollBy({ left: slideWidth + 20, behavior: 'smooth' });
   }
 
-  formatPrice(price: number, unit: string): string {
-    if (unit === 'crore') {
-      return `₹${price} Cr`;
-    }
-    return `₹${price} L`;
+  formatPrice(property: Property): string {
+    return formatPrice(property);
   }
 
   getTypeBadgeClass(type: string): string {

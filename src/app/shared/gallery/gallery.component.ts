@@ -2,6 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PropertyService } from '../../core/services/property.service';
+import { formatPrice } from '../../core/utils/format-price';
 import { Property } from '../../core/models/property.model';
 
 @Component({
@@ -20,8 +21,8 @@ export class GalleryComponent implements OnInit {
     this.propertyService.getAll().subscribe(props => this.properties.set(props));
   }
 
-  formatPrice(price: number, unit: string): string {
-    return unit === 'crore' ? `₹${price} Cr` : `₹${price} L`;
+  formatPrice(property: Property): string {
+    return formatPrice(property);
   }
 
   getTypeBadgeClass(type: string): string {
@@ -37,7 +38,7 @@ export class GalleryComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     const url = `${window.location.origin}/property/${property.id}`;
-    const text = `Check out this property — ${property.title} (${this.formatPrice(property.price, property.priceUnit)}) in ${property.district}.\n${url}`;
+    const text = `Check out this property — ${property.title} (${this.formatPrice(property)}) in ${property.district}.\n${url}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
   }
 
