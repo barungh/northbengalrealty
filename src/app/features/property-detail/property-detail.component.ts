@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PropertyService } from '../../core/services/property.service';
 import { SeoService } from '../../core/services/seo.service';
 import { Property } from '../../core/models/property.model';
+import { formatPrice } from '../../core/utils/format-price';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { MobileBottomBarComponent } from '../../shared/mobile-bottom-bar/mobile-bottom-bar.component';
@@ -35,14 +36,17 @@ export class PropertyDetailComponent implements OnInit {
     });
   }
 
-  formatPrice(price: number, unit: string): string {
-    return unit === 'crore' ? `₹${price} Crore` : `₹${price} Lakh`;
+  readonly mainPhone = '+918617047355';
+  readonly fallbackPhone = '+916297063622';
+
+  formatPrice(p: Property): string {
+    return formatPrice(p, 'long');
   }
 
   shareWhatsApp(): void {
     const p = this.property();
     if (!p) return;
-    const text = `Property enquiry: ${p.title}\n${p.location}, ${p.district}\n${this.formatPrice(p.price, p.priceUnit)}\nArea: ${p.area} ${p.areaUnit}${p.bhk ? ', ' + p.bhk + ' BHK' : ''}\n\nI'm interested in this property. Please provide more details.`;
+    const text = `Property enquiry: ${p.title}\n${p.location}, ${p.district}\n${this.formatPrice(p)}\nArea: ${p.area} ${p.areaUnit}${p.bhk ? ', ' + p.bhk + ' BHK' : ''}\n\nI'm interested in this property. Please provide more details.`;
     window.open(`https://wa.me/916297063622?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
   }
 }

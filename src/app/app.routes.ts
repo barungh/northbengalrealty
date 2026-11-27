@@ -15,6 +15,12 @@ export const routes: Routes = [
       ),
   },
   {
+    // Short link for printed site plans, QR codes and WhatsApp sharing
+    path: 'eastern-bypass',
+    redirectTo: 'property/nbr-008',
+    pathMatch: 'full',
+  },
+  {
     path: '**',
     redirectTo: '',
   },
